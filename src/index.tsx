@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Typography from '@material-ui/core/Typography';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

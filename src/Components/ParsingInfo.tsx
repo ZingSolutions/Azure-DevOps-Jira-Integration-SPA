@@ -1,6 +1,6 @@
 import React from 'react';
 
-function RoutingHandler({ match } : {match:any}){
+function ParsingInfo({ match } : {match:any}){
     console.log(match)
     return(
         <div>
@@ -11,4 +11,4 @@ function RoutingHandler({ match } : {match:any}){
     );
 }
 
-export default RoutingHandler;
+export default ParsingInfo;

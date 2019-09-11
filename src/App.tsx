@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import RoutingHandler from './Components/RoutingHandler';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ParsingInfo from './Components/ParsingInfo';
+import NotFound from './Components/NotFound';
 import Typography from '@material-ui/core/Typography';
 
 function App() {
     return(
         <Router>
-            <Route path='/:prefix/:prid/:token' component={RoutingHandler}></Route>
+            <Switch>
+              <Route path='/:prefix/:prid/:token' component={ParsingInfo}></Route>
+              <Route component={NotFound}></Route>
+            </Switch>
         </Router>
     );
 }

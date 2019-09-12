@@ -9,10 +9,12 @@ import Typography from '@material-ui/core/Typography';
 function App() {
     return(
         <Router>
-            <Switch>
-              <Route path='/:prefix/:prid/:token' component={ParsingInfo}></Route>
-              <Route component={NotFound}></Route>
-            </Switch>
+            <div>
+                <Switch>
+                    <Route path='/:prefix/:prid/:token' component={ParsingInfo}></Route>
+                    <Route component={NotFound}></Route>
+                </Switch>
+            </div>
         </Router>
     );
 }

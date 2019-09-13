@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Issues from './Issues'
 import NotFound from './NotFound';
+import fetchData from '../api/azureApi'
 
 
 function ParsingInfo({ match } : {match:any}){
@@ -13,22 +14,9 @@ function ParsingInfo({ match } : {match:any}){
 
     const [data, setData] = useState();
 
-    async function fetchData() {
-        const res = await fetch("http://localhost:7071/api/URLValidation", {
-            method: "POST",
-            body: JSON.stringify(items)
-        }).then(res => {if(res.ok){
-            setData(true)
-        }
-        else{
-            setData(false)
-        }
-    })
-    }
-
     useEffect(() => {
-        fetchData();
-    });
+        fetchData(items).then(res => setData(res))
+    },[]);
 
     return (
         <div>{data ? <Issues /> : <NotFound />}</div>

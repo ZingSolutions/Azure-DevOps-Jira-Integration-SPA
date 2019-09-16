@@ -1,44 +1,46 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# react-playground
+Playground for trying out differnt things in React
 
-## Available Scripts
+## api-example
 
-In the project directory, you can run:
+### Overview
+Quick example of how you can create a compoent that gets information from a REST API on initilisation or on a reset event.
 
-### `npm start`
+## auth-example
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Overview
+This example shows how you can perform multiple authentication steps within your application to protect certian routes.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Details
+A custom hook ``useAuth`` has been written to preform the authentication steps.
 
-### `npm test`
+First it validates props (two id fields and a token) passed in the URL via an azure function to make sure the link is valid to view the page.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Once that step is validated, a OAuth 2 public client auth code flow is used to authenticate the user with Jira.
 
-### `npm run build`
+Once validated the current users details, from Jira, are displayed.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If the user cancels to the login, or there are any errors a relavant error message is displayed along with a login button to retry the login process.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Once the access token to Jira has expired an event is fired and the compoent will show the errored state, with a token expired message, asking the user to click the login button to carry on.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The ``react-router-dom`` package is used to handle the page routing / redirecting. Typescript types where also added by adding the ``@types/react-router-dom`` package.
 
-### `npm run eject`
+The ``oidc-client`` package is used to help marshal through the OAuth 2 code flow used to authenticate with Jira.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Setup Instructions
+Get the Client Id and Client Secret for your Jira account and add them to the ``local.settings.json`` file in the ``server`` directory as top level settings named: ``JiraClientId`` and ``JiraClientSecret``.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Run the ``AuthExample`` functions project from the ``server`` folder and take note of the base URL for the functions app e.g. (http://localhost:7071/api/).
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+From the ``client`` folder you can start the react application but you will need to sset two environment variables first:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+``HTTPS = "true"``
+``REACT_APP_AUTH_FUNCTION_API_BASE_URL = {url from above}``
 
-## Learn More
+An example of how you can do this all in one line from a powershell terminal running from the ``client`` folder:
+```
+($env:REACT_APP_AUTH_FUNCTION_API_BASE_URL = "http://localhost:7071/api/") -and  ($env:HTTPS = "true") -and (npm start)
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Once the application is running you will need to update the callback setting for your registerd Jira application in the Jira developer portal. You should set this to the following path of the app: ``/auth/callback``. e.g. (https://localhost:3000/auth/callback).

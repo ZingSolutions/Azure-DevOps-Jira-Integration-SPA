@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance } from 'axios';
 import Site from '../models/jira/Site';
-import User from '../models/jira/User';
+import User, { Search } from '../models/jira/User';
 
 export default class JiraApi{
     
@@ -20,19 +20,19 @@ export default class JiraApi{
 
     public constructor(cloudId: string, accessToken: string){
         this.v2ApiClient = Axios.create({
-            baseURL: `${JiraApi.apiRootUrl}ex/jira/${cloudId}/rest/api/2/`,
+            baseURL: `${JiraApi.apiRootUrl}ex/jira/${cloudId}/rest/api/`,
             headers: {
                 "Authorization": `Bearer ${accessToken}`,
                 "Accept": "application/json"
             }
         });
     }
-
+    
     /**
      * returns user info from Jira
      * for the autenticated user
      */
-    public async GetMyInfoAsync(): Promise<User>{
-        return (await this.v2ApiClient.get<User>('myself')).data;
+    public async GetMyIssueAsync(): Promise<Search>{
+        return (await this.v2ApiClient.get<Search>('3/search')).data;
     }
 }

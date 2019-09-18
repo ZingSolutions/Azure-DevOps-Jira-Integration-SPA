@@ -1,18 +1,34 @@
-import React from 'react';
-import User from '../models/jira/User';
+import React, { useState, useEffect } from 'react';
+import User, { Issue } from '../models/jira/User';
+import IssueList from './IssueList';
+import JiraApi from '../api/JiraApi';
+import UserFilter from './UserFilter';
 
 export interface JiraUserCardProps{
-    user: User
+    api: JiraApi
 }
 
 const JiraUserCard: React.FC<JiraUserCardProps> = (props: JiraUserCardProps) => {
+
+    const [issues, setIssues] = useState<Issue[]>([]);
+    const check = issues.length === 0;
+
+    useEffect(() => {
+        async function doSearch(){
+            const sr = await props.api.GetMyIssueAsync();
+            setIssues(sr.issues);
+        }
+        doSearch();        
+    }, []);
+
+    function handleChange(updateVal:Issue[]) {
+        setIssues(updateVal);
+    }    
+
     return (
-    <div className="user-detail">
-        <p>
-            <img alt={props.user.displayName} src={props.user.avatarUrls["48x48"]}/>
-        </p>
-        <p><b>Name:</b> {props.user.displayName}</p>
-        <p><b>Email:</b> {props.user.emailAddress}</p>
+    <div>
+        {check ? '' : <UserFilter issues={issues} onChange={handleChange}/>}
+        {check ? '' : <IssueList issues={issues} />}
     </div>
     );
 };

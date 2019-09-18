@@ -42,10 +42,9 @@ export default function useAuth(props: PRDetailProps): [AuthResult, () => void] 
             }
 
             const api = new JiraApi(sites[0].id, token);
-            const user = await api.GetMyInfoAsync();
-            setAuthResult(new AuthResult('Authorised', '', user, api));
+            const search = await api.GetMyIssueAsync();
+            setAuthResult(new AuthResult('Authorised', '', search, api));
         }
-
         async function validatePRInfoAsync() {
             setAuthResult(generatePendingAuthResult('validing PR token, please wait ...'))
             const [status, res] = await ValidatePRInfoAsync(props);

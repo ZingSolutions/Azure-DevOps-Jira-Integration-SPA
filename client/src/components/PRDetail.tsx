@@ -19,8 +19,8 @@ const PRDetail: React.FC<PRDetailProps> = (props: PRDetailProps) => {
         </ul>
         <br/>
         */}
-        {authResult.status === 'Authorised' && authResult.user 
-        ? <JiraUserCard user={authResult.user} /> 
+        {authResult.status === 'Authorised' && authResult.jiraV2Api 
+        ? <JiraUserCard api={authResult.jiraV2Api} /> 
         : (<>
         <p className={authResult.status === 'Unauthorised' ? 'auth-error' : 'auth-pending'}>
             {authResult.statusMessage}

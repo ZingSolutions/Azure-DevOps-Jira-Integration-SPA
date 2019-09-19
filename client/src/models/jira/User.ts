@@ -26,6 +26,20 @@ export interface Fields{
     customfield_10014: string;
     customfield_10011: string;
     customfield_10001: string;
+    description: Description;
+    subtasks: Issue[];
+}
+
+export interface Description{
+    content: Description2[]
+}
+
+export interface Description2{
+    content: RealDescription[]
+}
+
+export interface RealDescription{
+    text: string;
 }
 
 export interface Assignee{

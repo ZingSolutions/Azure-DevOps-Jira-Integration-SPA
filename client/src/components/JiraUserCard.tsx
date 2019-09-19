@@ -36,14 +36,9 @@ const JiraUserCard: React.FC<JiraUserCardProps> = (props: JiraUserCardProps) => 
 
     return (
     <div>
-        <div>
-            {check ? '' : <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>}
-            {check ? '' : <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>}
-            {check ? '' : <IssueList issues={issues} />}
-        </div>
-        <div>
-            fafs
-        </div>
+        {check ? '' : <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>}
+        {check ? '' : <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>}
+        {check ? '' : <IssueList issues={issues} />}
     </div>
     );
 };

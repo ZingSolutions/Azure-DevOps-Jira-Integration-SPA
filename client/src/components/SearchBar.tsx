@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       'margin-left': '2em',
-      'text-align': 'left'
+      'text-align': 'left',
     }
   }),
 );

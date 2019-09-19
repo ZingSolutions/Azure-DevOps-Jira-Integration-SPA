@@ -6,7 +6,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import { Chip } from '@material-ui/core';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 export interface IssueProps {

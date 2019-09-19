@@ -4,6 +4,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Avatar from "@material-ui/core/Avatar";
 export interface IssueListProps {
     issues: Issue[];
+    allIssues: Issue[];
     onChange: any;
 }
 
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
+
     const users = props.issues.filter(item => {
         if(item.fields.assignee !== null){
             return item.fields.assignee.avatarUrls["16x16"];
@@ -36,7 +38,13 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
                 }
             }
         })
-        props.onChange(newIssues);
+
+        if(newIssues.length !== props.issues.length){
+            props.onChange(newIssues);
+        }
+        else{
+            props.onChange(props.allIssues);
+        }              
     }
 
     const classes = useStyles();

@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 'fit-content',
       margin: '1em',
       backgroundColor: theme.palette.background.paper,
+    },
+    pane:{
+        minWidth: 'max-content',
+        float: 'left',
     }
   }),
 );
@@ -43,7 +47,7 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
     });
     return(
         <div className={classes.root}>
-            <List>
+            <List> 
                 {stories.map((e,i) => {
                     return(<IssueComponent key={i} issue={e} epics={epics} />)
                 })}   

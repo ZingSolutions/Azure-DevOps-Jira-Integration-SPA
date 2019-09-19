@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: '100%',
       maxWidth: 'fit-content',
-      margin: '1em',
+      margin: '1em 0 0 2em',
       backgroundColor: theme.palette.background.paper,
     }
   }),
@@ -47,11 +47,18 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
         }              
     }
 
+    const distinctUsers = Array.from(new Set(users.map(e => e.fields.assignee.avatarUrls["16x16"])))
+    .map(url => {
+        return {
+            link: url,
+        };
+    });
+
     const classes = useStyles();
     return(
         <div className={classes.root}>
-            {users.map((e,i) => {
-                return(<Avatar key={i} onClick={UpdateIssues} src={e.fields.assignee.avatarUrls["16x16"] } />)
+            {distinctUsers.map((e,i) => {
+                return(<Avatar key={i} onClick={UpdateIssues} src={e.link} />)
             })}
         </div>
     );

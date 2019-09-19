@@ -28,16 +28,6 @@ const  IssueComponent: React.FC<IssueProps> = (props: IssueProps) =>{
           props.issue.fields.customfield_10001 = e.fields.customfield_10011;
       }
     })
-
-    function handleDelete(e:any) {
-        const tag = e.target.parentElement;
-        if(tag.tagName == "DIV") {
-          tag.remove();
-        }
-        else if(tag.tagName == "svg"){
-          tag.parentElement.remove();
-        }
-    }
     return(
       <div>
         <ListItem button>
@@ -46,7 +36,7 @@ const  IssueComponent: React.FC<IssueProps> = (props: IssueProps) =>{
           </ListItemAvatar>
           <img src={props.issue.fields.issuetype.iconUrl} />
           <ListItemText className={classes.root} primary={props.issue.key + " " + props.issue.fields.summary} />
-          <Chip className={classes.root} label={props.issue.fields.customfield_10001} onDelete={handleDelete}/>
+          <Chip className={classes.root} label={props.issue.fields.customfield_10001}/>
           <Checkbox color="primary"/>
         </ListItem>
         <Divider />

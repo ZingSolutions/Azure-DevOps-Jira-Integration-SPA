@@ -29,7 +29,6 @@ const JiraUserCard: React.FC<JiraUserCardProps> = (props: JiraUserCardProps) => 
             setIssues(updateVal);
         }
         else{
-            console.log(1);
             setIssues([]);
         }
     }    
@@ -38,7 +37,7 @@ const JiraUserCard: React.FC<JiraUserCardProps> = (props: JiraUserCardProps) => 
     <div>
         {check ? '' : <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>}
         {check ? '' : <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>}
-        {check ? '' : <IssueList issues={issues} />}
+        {check ? '' : <IssueList issues={issues} api={props.api}/>}
     </div>
     );
 };

@@ -5,9 +5,10 @@ import {Issue} from '../models/jira/User';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Info from './IssueInfo';
-import { async } from 'q';
+import JiraApi from '../api/JiraApi';
 export interface IssueListProps {
     issues: Issue[];
+    api: JiraApi
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,7 +61,7 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
                 <Button variant="contained" color="primary">SUBMIT</Button>
             </div>
             <div>
-                {issueInfo === undefined ? '' :<Info issue={issueInfo}/>}
+                {issueInfo === undefined ? '' :<Info issue={issueInfo} api={props.api}/>}
             </div>
         </div>
     )

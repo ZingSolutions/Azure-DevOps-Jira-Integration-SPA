@@ -14,6 +14,14 @@ export interface Search{
     issues: Issue[];
 }
 
+export interface AllComments{
+    comment: Comment;
+}
+
+export interface Comment{
+    body: string;
+}
+
 export interface Issue{
     key: string;    
     fields: Fields;

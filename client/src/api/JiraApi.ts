@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance } from 'axios';
 import Site from '../models/jira/Site';
-import User, { Search } from '../models/jira/User';
+import User, { Search, AllComments } from '../models/jira/User';
 
 export default class JiraApi{
     
@@ -34,5 +34,12 @@ export default class JiraApi{
      */
     public async GetMyIssueAsync(): Promise<Search>{
         return (await this.v2ApiClient.get<Search>('3/search')).data;
+    }
+    /**
+     * returns user info from Jira
+     * for the autenticated user
+     */
+    public async GetMyCommentAsync(key:string): Promise<AllComments>{
+        return (await this.v2ApiClient.get<AllComments>('2/issue/' + key + '/comment')).data;
     }
 }

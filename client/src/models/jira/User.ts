@@ -15,11 +15,16 @@ export interface Search{
 }
 
 export interface AllComments{
-    comment: Comment;
+    comments: Comment[];
 }
 
 export interface Comment{
     body: string;
+    author: Author;
+}
+
+export interface Author{
+    displayName:string;
 }
 
 export interface Issue{

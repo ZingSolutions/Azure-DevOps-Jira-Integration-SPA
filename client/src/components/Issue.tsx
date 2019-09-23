@@ -8,6 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Chip } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import SelectedIssues from './SelectedIssues';
 export interface IssueProps {
     issue: Issue;
     epics: Issue[];
@@ -28,6 +29,12 @@ const  IssueComponent: React.FC<IssueProps> = (props: IssueProps) =>{
           props.issue.fields.customfield_10001 = e.fields.customfield_10011;
       }
     })
+
+    function checkSelected(e:any){
+      console.log(1);
+      return(<h1>Test One</h1>);
+    }
+
     return(
       <div>
         <ListItem button>
@@ -37,7 +44,7 @@ const  IssueComponent: React.FC<IssueProps> = (props: IssueProps) =>{
           <img src={props.issue.fields.issuetype.iconUrl} />
           <ListItemText className={classes.root} primary={props.issue.key + " " + props.issue.fields.summary} />
           <Chip className={classes.root} label={props.issue.fields.customfield_10001}/>
-          <Checkbox color="primary"/>
+          <Checkbox onChange={checkSelected} color="primary"/>
         </ListItem>
         <Divider />
       </div>

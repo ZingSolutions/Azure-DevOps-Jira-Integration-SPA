@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Issue} from '../models/jira/User';
+import {Issue, AllComments} from '../models/jira/User';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Paper from "@material-ui/core/Paper";
@@ -21,15 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Info: React.FC<InfoProps> = (props: InfoProps) =>{
     const classes = useStyles();
-    const [comments, setComments] = useState();
+    const [comments, setComments] = useState<AllComments>();
     useEffect(() => {
         async function getComments(){
             const res = await props.api.GetMyCommentAsync(props.issue.key);
-            setComments(res);
+            await setComments(res);
         }
         getComments();
     }, []);
-    console.log(comments);
     return(
         <div>
             <Paper className={classes.root}>
@@ -51,11 +50,14 @@ const Info: React.FC<InfoProps> = (props: InfoProps) =>{
                             </div>)
                         })}
                     </div>
-                    <div style={{textAlign: 'left'}}>
-                        <Typography variant="h6" component="h6">Comments:</Typography>
-                        
-                        <p>asasfasf</p>
-                    </div>
+                    {comments === undefined ? '' : comments.comments.map(e => {
+                        return(
+                        <div style={{textAlign: 'left', paddingBottom: '.2em'}}>
+                            <Typography component="p">Author: {e.author.displayName}</Typography>
+                            <Typography variant="body2">{e.body}</Typography>
+                        </div>)
+                    })}
+
                 </div>
             </Paper>
         </div>

@@ -5,6 +5,7 @@ import {Issue} from '../models/jira/User';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Info from './IssueInfo';
+import SelectedIssues from './SelectedIssues';
 import JiraApi from '../api/JiraApi';
 export interface IssueListProps {
     issues: Issue[];
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: 'fit-content',
       margin: '1em',
       backgroundColor: theme.palette.background.paper,
+      textAlign: 'center',
       float: 'left',
     }, 
     hide: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
+    const [selectIssues, setSelectIssues] = useState([]);
     const [issueInfo, setIssueInfo] = useState();
     const classes = useStyles();
     
@@ -59,6 +62,10 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
                     })}   
                 </List>     
                 <Button variant="contained" color="primary">SUBMIT</Button>
+                <h1>Selected Issues</h1>
+                {selectIssues.map((e,i) =>{
+                    return<IssueComponent key={i} issue={e} epics={epics} />
+                })}
             </div>
             <div>
                 {issueInfo === undefined ? '' :<Info issue={issueInfo} api={props.api}/>}

@@ -1,6 +1,6 @@
 import { AuthResultStatus } from "./types";
 import JiraApi from "../api/JiraApi";
-import User, { Search } from "./jira/User";
+import { Search } from "./jira/JiraObject";
 
 export default class AuthResult{
     public constructor(status: AuthResultStatus, statusMessage: string, search?: Search, jiraV2Api?: JiraApi){

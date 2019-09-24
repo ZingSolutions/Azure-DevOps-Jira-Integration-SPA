@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Issue} from '../models/jira/User';
+import React from 'react';
+import {Issue} from '../models/jira/JiraObject';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+
 export interface SearchProps {
     issues: Issue[];
     allIssues: Issue[];
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const  Search: React.FC<SearchProps> = (props: SearchProps) =>{
+const Search: React.FC<SearchProps> = (props: SearchProps) =>{
     const classes = useStyles();
 
     function handleSearch(text:any) {
@@ -35,6 +36,7 @@ const  Search: React.FC<SearchProps> = (props: SearchProps) =>{
             props.onChange(newIssues);
         }
         else{
+            //TODO MIGHT NEED TO CHANGE THAT???
             alert("Not Matches Found: " + text.target.value);
         }
     }

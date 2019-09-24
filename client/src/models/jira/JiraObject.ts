@@ -1,30 +1,8 @@
-import { string } from "prop-types"
-
-export default interface User {
-    key: string;
-    accountId: string;
-    name: string;
-    emailAddress: string;
-    avatarUrls: AvatarUrls;
-    displayName: string;
-}
+/* FIELDS */
 
 export interface Search{
     total: number;
     issues: Issue[];
-}
-
-export interface AllComments{
-    comments: Comment[];
-}
-
-export interface Comment{
-    body: string;
-    author: Author;
-}
-
-export interface Author{
-    displayName:string;
 }
 
 export interface Issue{
@@ -69,4 +47,19 @@ export interface AvatarUrls{
     "32x32": string;
     "24x24": string;
     "16x16": string;
+}
+
+/* COMMENTS */
+
+export interface AllComments{
+    comments: Comment[];
+}
+
+export interface Comment{
+    body: string;
+    author: Author;
+}
+
+export interface Author{
+    displayName:string;
 }

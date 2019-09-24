@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import User, { Issue } from '../models/jira/User';
+import { Issue } from '../models/jira/JiraObject';
 import IssueList from './IssueList';
 import JiraApi from '../api/JiraApi';
 import UserFilter from './UserFilter';
 import SearchBar from './SearchBar';
 
-export interface JiraUserCardProps{
+export interface MainProps{
     api: JiraApi
 }
 
-const JiraUserCard: React.FC<JiraUserCardProps> = (props: JiraUserCardProps) => {
+const Main: React.FC<MainProps> = (props: MainProps) => {
 
     const [issues, setIssues] = useState<Issue[]>([]);
     const [allIssues, setAllIssues] = useState<Issue[]>([]);
-    const check = issues.length === 0;
 
     useEffect(() => {
         async function doSearch(){
-            const sr = await props.api.GetMyIssueAsync();
-            setIssues(sr.issues);
-            setAllIssues(sr.issues);
+            const response = await props.api.GetMyIssueAsync();
+            setIssues(response.issues);
+            setAllIssues(response.issues);
         }
         doSearch();        
     }, []);
@@ -35,11 +34,14 @@ const JiraUserCard: React.FC<JiraUserCardProps> = (props: JiraUserCardProps) => 
 
     return (
     <div>
-        {check ? '' : <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>}
-        {check ? '' : <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>}
-        {check ? '' : <IssueList issues={issues} api={props.api}/>}
+        {issues.length === 0 ? '' : 
+        <>
+            <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>
+            <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>
+            <IssueList issues={issues} api={props.api}/>
+        </>}
     </div>
     );
 };
 
-export default JiraUserCard;
+export default Main;

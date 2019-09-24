@@ -19,8 +19,7 @@ const App: React.FC = () => {
           />
           <Route component={NoMatch}/>
         </Switch>
-      </Router>
-      
+      </Router>      
     </div>
   );
 }

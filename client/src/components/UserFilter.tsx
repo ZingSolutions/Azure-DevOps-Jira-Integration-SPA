@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Issue} from '../models/jira/User';
+import React from 'react';
+import {Issue} from '../models/jira/JiraObject';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Avatar from "@material-ui/core/Avatar";
+
 export interface IssueListProps {
     issues: Issue[];
     allIssues: Issue[];
@@ -19,13 +20,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
+const IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
 
     const users = props.issues.filter(item => {
         if(item.fields.assignee !== null){
             return item.fields.assignee.avatarUrls["16x16"];
         }
         else{
+            //TODO CHANGE IT SAMPLE URL 
             return '';
         }
     });
@@ -48,9 +50,9 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
     }
 
     const distinctUsers = Array.from(new Set(users.map(e => e.fields.assignee.avatarUrls["16x16"])))
-    .map(url => {
-        return {
-            link: url,
+        .map(url => {
+            return {
+                link: url,
         };
     });
 

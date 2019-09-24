@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance } from 'axios';
 import Site from '../models/jira/Site';
-import User, { Search, AllComments } from '../models/jira/User';
+import { Search, AllComments } from '../models/jira/JiraObject';
 
 export default class JiraApi{
     

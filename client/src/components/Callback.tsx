@@ -27,8 +27,8 @@ const Callback: React.FC = () => {
     }, []);
     return (
         <>
-        <p className={isError ? 'error' : 'info'}>{message}</p>
-        {redirectTo ? <Redirect to={redirectTo} push={false} /> : ''}
+            <p className={isError ? 'error' : 'info'}>{message}</p>
+            {redirectTo ? <Redirect to={redirectTo} push={false} /> : ''}
         </>
     );
 };

@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {Issue, AllComments} from '../models/jira/User';
+import {Issue, AllComments} from '../models/jira/JiraObject';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Paper from "@material-ui/core/Paper";
 import JiraApi from '../api/JiraApi';
+
 export interface InfoProps {
     issue: Issue;
     api: JiraApi
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Info: React.FC<InfoProps> = (props: InfoProps) =>{
     const classes = useStyles();
     const [comments, setComments] = useState<AllComments>();
+
     useEffect(() => {
         async function getComments(){
             const res = await props.api.GetMyCommentAsync(props.issue.key);
@@ -29,6 +31,7 @@ const Info: React.FC<InfoProps> = (props: InfoProps) =>{
         }
         getComments();
     }, []);
+
     return(
         <div>
             <Paper className={classes.root}>
@@ -57,7 +60,6 @@ const Info: React.FC<InfoProps> = (props: InfoProps) =>{
                             <Typography variant="body2">{e.body}</Typography>
                         </div>)
                     })}
-
                 </div>
             </Paper>
         </div>

@@ -8,10 +8,15 @@ import Info from './IssueInfo';
 import SelectedIssues from './SelectedIssues';
 import JiraApi from '../api/JiraApi';
 import { Typography } from '@material-ui/core';
+import sendIssueRepoMapping from '../api/SendIssueRepoData';
+import PRDetailProps from '../models/PRDetailProps';
 
 export interface IssueListProps {
-    issues: Issue[];
-    api: JiraApi
+    issues: Issue[],
+    api: JiraApi,
+    prefix:string,
+    reqID:string
+    token:string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,6 +58,17 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
         }
     }
 
+    function sendData(){
+        const json = {
+            Prefix: props.prefix,
+            RequestID: props.reqID,
+            token: props.token,
+            IssueID: selectIssues,
+            RepoID: ["3","4"]
+        }
+        sendIssueRepoMapping(json);
+    }
+
     return(
         <div>
             <div className={classes.root}>
@@ -65,7 +81,7 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
                 <div style={{textAlign: 'left',maxWidth:'100%', marginTop: '1%'}}>
                     <SelectedIssues issues={selectIssues} />
                 </div>
-                <Button style={{marginTop: '5%'}}variant="contained" color="primary">SUBMIT</Button>
+                <Button style={{marginTop: '5%'}}variant="contained" color="primary" onClick={sendData}>SUBMIT</Button>
             </div>
             <div>
                 {issueInfo === undefined ? '' :<Info issue={issueInfo} api={props.api}/>}

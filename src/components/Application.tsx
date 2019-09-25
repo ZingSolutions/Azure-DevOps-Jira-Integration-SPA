@@ -6,7 +6,10 @@ import UserFilter from './UserFilter';
 import SearchBar from './SearchBar';
 
 export interface MainProps{
-    api: JiraApi
+    api: JiraApi,
+    prefix: string,
+    reqID: string
+    token: string
 }
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
@@ -38,7 +41,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         <>
             <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>
             <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>
-            <IssueList issues={issues} api={props.api}/>
+            <IssueList issues={issues} api={props.api} prefix={props.prefix} reqID={props.reqID} token={props.token}/>
         </>}
     </div>
     );

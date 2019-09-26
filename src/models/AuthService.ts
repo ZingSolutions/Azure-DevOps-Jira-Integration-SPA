@@ -1,6 +1,6 @@
 import {UserManager} from 'oidc-client';
 
-export type StoreItemId = 'SITE_URL' | 'CLIENT_ID' | 'CLIENT_SECRET';
+export type StoreItemId = 'SITE_URL' | 'CLIENT_ID' | 'CLIENT_SECRET' | 'URL';
 
 export default class AuthService {
     

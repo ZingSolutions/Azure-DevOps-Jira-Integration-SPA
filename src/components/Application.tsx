@@ -4,6 +4,8 @@ import IssueList from './IssueList';
 import JiraApi from '../api/JiraApi';
 import UserFilter from './UserFilter';
 import SearchBar from './SearchBar';
+import RepoList from './RepoList';
+import sendIssueRepoMapping from '../api/SendIssueRepoData';
 
 export interface MainProps{
     api: JiraApi,
@@ -13,8 +15,10 @@ export interface MainProps{
 }
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-
+    
+    const [state, setState] = useState(0);
     const [issues, setIssues] = useState<Issue[]>([]);
+    const [issueIDs, setIssueIDs] = useState<string[]>([]);
     const [allIssues, setAllIssues] = useState<Issue[]>([]);
 
     useEffect(() => {
@@ -35,15 +39,37 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         }
     }    
 
+    function updateState(newState:number,ids:string[]){
+        setState(newState);
+        setIssueIDs(ids);
+    }
+
+    function repoInfo(allRepos:string[]){
+        const json = {
+            Prefix: props.prefix,
+            RequestID: props.reqID,
+            token: props.token,
+            IssueID: issueIDs,
+            RepoID: allRepos
+        }
+        sendIssueRepoMapping(json);
+    }
+
     return (
-    <div>
-        {issues.length === 0 ? '' : 
-        <>
-            <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>
-            <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>
-            <IssueList issues={issues} api={props.api} prefix={props.prefix} reqID={props.reqID} token={props.token}/>
-        </>}
-    </div>
+        <div>
+            {                
+                state === 0 ? 
+                <>
+                    <UserFilter issues={issues} allIssues={allIssues} onChange={handleChange}/>
+                    <SearchBar issues={issues} allIssues={allIssues} onChange={handleChange}/>
+                    <IssueList issues={issues} api={props.api} onChange={updateState}/>
+                </>
+                :
+                <>
+                    <RepoList repoData={repoInfo}/>
+                </>
+            }   
+        </div>
     );
 };
 

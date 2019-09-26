@@ -8,7 +8,7 @@ const PRDetail: React.FC<PRDetailProps> = (props: PRDetailProps) => {
     return (
         <>
             {authResult.status === 'Authorised' && authResult.jiraV2Api 
-            ? <Main prefix={props.groupId} reqID={props.pullRequestId} token={props.token} api={authResult.jiraV2Api} /> 
+            ? <Main prefix={props.groupId} reqID={props.pullRequestId} token={props.token} api={authResult.jiraV2Api}/> 
             : (<>
             <p className={authResult.status === 'Unauthorised' ? 'auth-error' : 'auth-pending'}>
                 {authResult.statusMessage}

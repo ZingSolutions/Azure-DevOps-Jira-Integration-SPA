@@ -60,6 +60,8 @@ export default function useAuth(props: PRDetailProps): [AuthResult, () => void] 
             setAuthResult(generatePendingAuthResult('checking jira login, please wait ...'));
             AuthService.SetStoreItem('CLIENT_ID', res.clientId);
             AuthService.SetStoreItem('CLIENT_SECRET', res.clientSecret);
+            console.log(res.url)
+            AuthService.SetStoreItem('URL', res.url);
             const as = new AuthService(res.clientId, res.clientSecret, onTokenExpired);
             const token = await as.GetAccessTokenAsync();
             if(token){

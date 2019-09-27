@@ -12,8 +12,9 @@ export interface SearchProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      'margin-left': '2em',
-      'text-align': 'left',
+    //   'margin-left': '2em',
+    //   'text-align': 'left',
+    marginRight: '8%'
     }
   }),
 );

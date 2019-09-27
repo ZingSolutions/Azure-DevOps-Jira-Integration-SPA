@@ -12,10 +12,9 @@ export interface IssueListProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
-      maxWidth: 'fit-content',
       margin: '1em 0 0 2em',
       backgroundColor: theme.palette.background.paper,
+      marginRight: '19%'
     }
   }),
 );
@@ -60,7 +59,7 @@ const IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
     return(
         <div className={classes.root}>
             {distinctUsers.map((e,i) => {
-                return(<Avatar key={i} onClick={UpdateIssues} src={e.link} />)
+                return(<Avatar style={{margin: '0 auto'}} key={i} onClick={UpdateIssues} src={e.link} />)
             })}
         </div>
     );

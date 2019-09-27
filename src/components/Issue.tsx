@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       'margin-left': '.5em',
+      'min-width': 'max-content'
     }
   }),
 );

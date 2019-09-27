@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       minWidth: '35%',
-      float: 'left',
+      maxWidth: '50%',
+      margin: '0 auto',
       padding: theme.spacing(3, 2),
     },
   }),
@@ -53,13 +54,16 @@ const Info: React.FC<InfoProps> = (props: InfoProps) =>{
                             </div>)
                         })}
                     </div>
-                    {comments === undefined ? '' : comments.comments.map(e => {
-                        return(
-                        <div style={{textAlign: 'left', paddingBottom: '.2em'}}>
-                            <Typography component="p">Author: {e.author.displayName}</Typography>
-                            <Typography variant="body2">{e.body}</Typography>
-                        </div>)
-                    })}
+                    <div style={{textAlign: 'left', paddingBottom: '1em'}}>
+                        <Typography variant="h6" component="h6">Comments:</Typography>
+                        {comments === undefined ? '' : comments.comments.map(e => {
+                            return(
+                            <div style={{textAlign: 'left', paddingBottom: '.2em'}}>
+                                <Typography component="p">Author: {e.author.displayName}</Typography>
+                                <Typography variant="body2">{e.body}</Typography>
+                            </div>)
+                        })}
+                    </div>
                 </div>
             </Paper>
         </div>

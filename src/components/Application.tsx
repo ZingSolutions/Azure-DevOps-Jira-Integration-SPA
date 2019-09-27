@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import RepoList from './RepoList';
 import sendIssueRepoMapping from '../api/SendIssueRepoData';
 
+
 export interface MainProps{
     api: JiraApi,
     prefix: string,

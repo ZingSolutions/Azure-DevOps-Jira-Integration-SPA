@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: 'fit-content',
-      margin: '1em',
+      margin: '0 auto',
       backgroundColor: theme.palette.background.paper,
+      minWidth: '-webkit-fill-available',
       textAlign: 'center',
       float: 'left',
     }
@@ -61,19 +61,19 @@ const  IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
     return(
         <div>
             <div className={classes.root}>
-                <List> 
+                <List style={{maxWidth: 'fit-content', margin: '0 auto'}}> 
                     {stories.map((e,i) => {
                         return(<div key={i} onClick={() => {setIssueInfo(e)}}><IssueComponent key={i} issue={e} epics={epics} onChange={handleCheck}/></div>)
                     })}   
                 </List>     
-                <Typography style={{marginTop: '5%'}} variant="h5" component="h4">Selected Issues</Typography>
-                <div style={{textAlign: 'left',maxWidth:'100%', marginTop: '1%'}}>
+                <div>
+                    {issueInfo === undefined ? '' :<Info issue={issueInfo} api={props.api}/>}
+                </div>
+                <Typography style={{marginTop: '1%'}} variant="h5" component="h4">Selected Issues</Typography>
+                <div>
                     <SelectedIssues issues={selectIssues} />
                 </div>
-                <Button style={{marginTop: '5%'}}variant="contained" color="primary" onClick={selectRepo}>NEXT</Button>
-            </div>
-            <div>
-                {issueInfo === undefined ? '' :<Info issue={issueInfo} api={props.api}/>}
+                <Button style={{marginTop: '1%'}}variant="contained" color="primary" onClick={selectRepo}>NEXT</Button>
             </div>
         </div>
     )

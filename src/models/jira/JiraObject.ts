@@ -63,3 +63,8 @@ export interface Comment{
 export interface Author{
     displayName:string;
 }
+
+export interface RepoMapping{
+    issue: string;
+    repos: string[]
+}

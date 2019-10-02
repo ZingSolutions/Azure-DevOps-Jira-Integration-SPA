@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Issue } from '../models/jira/JiraObject';
+import { Issue, RepoMapping } from '../models/jira/JiraObject';
 import IssueList from './IssueList';
 import JiraApi from '../api/JiraApi';
 import UserFilter from './UserFilter';
 import SearchBar from './SearchBar';
 import RepoList from './RepoList';
 import sendIssueRepoMapping from '../api/SendIssueRepoData';
+import { Typography } from '@material-ui/core';
+
 
 
 export interface MainProps{
@@ -45,14 +47,15 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
         setIssueIDs(ids);
     }
 
-    function repoInfo(allRepos:string[]){
+    function repoInfo(mapping:RepoMapping[]){
         const json = {
             Prefix: props.prefix,
             RequestID: props.reqID,
             token: props.token,
             IssueID: issueIDs,
-            RepoID: allRepos
+            RepoMapping: mapping
         }
+        console.log(json);
         sendIssueRepoMapping(json);
     }
 
@@ -67,7 +70,8 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
                 </>
                 :
                 <>
-                    <RepoList repoData={repoInfo}/>
+                    <Typography style={{marginTop: '5%', marginBottom: '2%'}} variant="h5" component="h4">Please select repositories</Typography>
+                    <RepoList repoData={repoInfo} setState={setState} issues={issues} issueIDs={issueIDs}/>
                 </>
             }   
         </div>

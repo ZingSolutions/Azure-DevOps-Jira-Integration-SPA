@@ -9,7 +9,7 @@ const SelectedIssues: React.FC<SelectedProps> = (props: SelectedProps) =>{
     return (
         <div>
             {props.issues.map((e,i) =>{  
-                return(<Chip key={i} label={e} />)
+                return(<Chip style={{marginRight: '.2%'}} key={i} label={e} />)
             })}
         </div>
     );

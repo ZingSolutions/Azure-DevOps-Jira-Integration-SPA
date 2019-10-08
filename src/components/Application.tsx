@@ -24,7 +24,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
 
     useEffect(() => {
         async function doSearch(){
-            const response = await props.api.GetMyIssueAsync();
+            const response = await props.api.GetMyIssueAsync(props.prefix);
             setIssues(response.issues);
             setAllIssues(response.issues);
         }

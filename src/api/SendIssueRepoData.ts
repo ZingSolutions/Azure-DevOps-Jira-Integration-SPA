@@ -1,4 +1,3 @@
-import React from 'react';
 
 async function sendIssueRepoMapping(json:Object) {
     console.log(json);

@@ -1,6 +1,8 @@
 /* FIELDS */
 
 export interface Search{
+    startAt: number;
+    maxResults: number;
     total: number;
     issues: Issue[];
 }

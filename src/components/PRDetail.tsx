@@ -5,6 +5,7 @@ import Main from './Application';
 
 const PRDetail: React.FC<PRDetailProps> = (props: PRDetailProps) => {
     const [authResult, resetAuth] = useAuth(props);
+    console.log(props.groupId);
     return (
         <>
             {authResult.status === 'Authorised' && authResult.jiraV2Api 

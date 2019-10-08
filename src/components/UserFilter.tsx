@@ -26,7 +26,6 @@ const IssueList: React.FC<IssueListProps> = (props: IssueListProps) =>{
             return item.fields.assignee.avatarUrls["16x16"];
         }
         else{
-            //TODO CHANGE IT SAMPLE URL 
             return '';
         }
     });

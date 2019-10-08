@@ -42,7 +42,7 @@ export default function useAuth(props: PRDetailProps): [AuthResult, () => void] 
             }
 
             const api = new JiraApi(sites[0].id, token);
-            const search = await api.GetMyIssueAsync();
+            const search = await api.GetMyIssueAsync(props.groupId);
             setAuthResult(new AuthResult('Authorised', '', search, api));
         }
         async function validatePRInfoAsync() {

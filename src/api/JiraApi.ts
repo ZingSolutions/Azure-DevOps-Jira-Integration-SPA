@@ -1,6 +1,6 @@
-import Axios, { AxiosInstance } from 'axios';
+import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import Site from '../models/jira/Site';
-import { Search, AllComments } from '../models/jira/JiraObject';
+import { Search, AllComments, Issue } from '../models/jira/JiraObject';
 
 export default class JiraApi{
     
@@ -27,13 +27,36 @@ export default class JiraApi{
             }
         });
     }
-    
     /**
      * returns user info from Jira
      * for the autenticated user
      */
-    public async GetMyIssueAsync(): Promise<Search>{
-        return (await this.v2ApiClient.get<Search>('3/search')).data;
+
+    public async GetMyIssueAsync(id: string): Promise<Search>{
+        function GetRequestBody(start:number, project:string){
+            const requestBody = {
+                "startAt" : start,
+                "fields": ["summary","issuetype","assignee","customfield_10014","customfield_10001", "customfield_10011","description","subtasks"],
+                "jql" : `project = ${project}`
+            }
+            return requestBody;
+        }
+        let start = 0;
+        const req = await this.v2ApiClient.post<Search>('3/search', GetRequestBody(start, id));
+        const data: Promise<AxiosResponse<Search>>[] = [Promise.resolve(req)];
+        start = req.data.maxResults;
+        while(start < req.data.total)
+        {
+            const request = Object.assign({}, GetRequestBody(start,id))
+            start = request.startAt;
+            data.push(this.v2ApiClient.post<Search>('3/search', request));
+        }
+        await Promise.all(data);
+        let issues: Search[] = []
+        for (let i = 0, l = data.length; i < l; i++) {
+            issues = issues.concat((await data[i]).data)
+        }
+        return issues[0];
     }
     /**
      * returns user info from Jira

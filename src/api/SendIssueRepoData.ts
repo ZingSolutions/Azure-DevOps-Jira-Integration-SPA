@@ -2,7 +2,7 @@ import React from 'react';
 
 async function sendIssueRepoMapping(json:Object) {
     console.log(json);
-    const request = fetch("http://localhost:7071/api/IssueAndRepoMapping", {
+    const request = fetch(`${process.env["REACT_APP_AUTH_FUNCTION_API_BASE_URL"]}api/IssueAndRepoMapping`, {
         method: 'POST',
         headers: {
             'Accept': 'Application/json',

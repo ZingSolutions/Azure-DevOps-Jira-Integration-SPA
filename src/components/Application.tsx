@@ -8,8 +8,6 @@ import RepoList from './RepoList';
 import sendIssueRepoMapping from '../api/SendIssueRepoData';
 import { Typography } from '@material-ui/core';
 
-
-
 export interface MainProps{
     api: JiraApi,
     prefix: string,
